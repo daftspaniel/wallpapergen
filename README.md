@@ -6,4 +6,4 @@ Guiding rules:
 1. Nothing obtained online.
 2. Nothing random will be used.
 
-![Wallpaper] (out/test.png)
+![Wallpaper] (./out/test.png)
