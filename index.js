@@ -1,15 +1,36 @@
-import { savePNG } from './lib/io.js'
 import c from 'canvas'
+import os from 'os'
+import friendlyWords from 'friendly-words'
 
-const width = 640
-const height = 480
-const date = new Date()
-const shade = date.getDay() + 100
+import { savePNG } from './lib/io.js'
+import { Gfx } from './lib/gfx.js'
+import { Colour } from './lib/colour.js'
+
+const width = 1920
+const height = 1200
+
 const canvas = c.createCanvas(width, height)
 const context = canvas.getContext('2d')
+const g = new Gfx(context, width, height)
 
-context.fillStyle = '#00FF00'
-context.fillStyle = `rgb(0,${shade},0)`
-context.fillRect(0, 0, width, height)
+const date = new Date()
+const day = date.getDate()
+const background = new Colour(0, 0, 100 + day)
+const foreground = new Colour(0, 100 + day, 0)
+
+const shade = date.getDay() + 100
+console.log(os.platform() + ' ' + date)
+g.cls(background)
+
+for (let h = day; h < height - day; h += day * 2) {
+  g.drawHStripe(foreground, h, width - day, 4, day)
+}
+
+console.log(friendlyWords.objects[day])
+const word = friendlyWords.objects[day]
+context.fillStyle = '#ffffff'
+context.font = 'bold 72pt Arial'
+const textWidth = context.measureText(word).width
+context.fillText(word, (width - textWidth) / 2, 555)
 
 savePNG(canvas, 'out\\test.png')
