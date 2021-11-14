@@ -1,10 +1,10 @@
 import c from 'canvas'
 import os from 'os'
-import friendlyWords from 'friendly-words'
 
 import { savePNG } from './lib/io.js'
 import { Gfx } from './lib/gfx.js'
-import { Colour } from './lib/colour.js'
+import { Colour, Stock } from './lib/colour.js'
+import { getWord, getFont } from './lib/words.js'
 
 const width = 1920
 const height = 1200
@@ -14,23 +14,34 @@ const context = canvas.getContext('2d')
 const g = new Gfx(context, width, height)
 
 const date = new Date()
-const day = date.getDate()
-const background = new Colour(0, 0, 100 + day)
-const foreground = new Colour(0, 100 + day, 0)
+let day = date.getDate()
+const shade = date.getDate() + 100
+const palette = {
+  background: new Colour(0, 0, shade),
+  grid: new Colour(0, shade, 0),
+}
+console.log(date)
+console.log('OS:\t' + os.platform())
 
-const shade = date.getDay() + 100
-console.log(os.platform() + ' ' + date)
-g.cls(background)
+g.cls(palette.background)
 
-for (let h = day; h < height - day; h += day * 2) {
-  g.drawHStripe(foreground, h, width - day, 4, day)
+if (day % 2 === 0) {
+  for (let h = day; h < height - day; h += day * 2) {
+    g.drawHStripe(palette.grid, h, width - day * 2, 4, day)
+  }
 }
 
-console.log(friendlyWords.objects[day])
-const word = friendlyWords.objects[day]
-context.fillStyle = '#ffffff'
-context.font = 'bold 72pt Arial'
+if (day % 4 === 0) {
+  for (let h = day; h < width - day; h += day * 2) {
+    g.drawVStripe(palette.grid, h, height - day * 2, 4, day)
+  }
+}
+
+const word = getWord()
+context.font = getFont(111)
+
 const textWidth = context.measureText(word).width
-context.fillText(word, (width - textWidth) / 2, 555)
+
+g.drawText(Stock.white, (width - textWidth) / 2, 555, word)
 
 savePNG(canvas, 'out\\test.png')
