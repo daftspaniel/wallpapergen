@@ -17,13 +17,16 @@ const date = new Date()
 let day = date.getDate()
 const shade = date.getDate() + 100
 
+// Verbose details
+console.log(date)
+console.log('OS:\t' + os.platform())
+
+// Palette generation
 const palette = {
   background: mix(0, 0, shade),
   grid: mix(0, shade, 0),
   text: mix(255, 255, 255),
 }
-console.log(date)
-console.log('OS:\t' + os.platform())
 
 palette.text = palette.background
   .clone()
@@ -34,6 +37,7 @@ palette.grid = palette.background
   .clone()
   .lighten(12 * day)
 
+// Clear to background
 g.cls(palette.background)
 
 if (day % 2 === 0) {
