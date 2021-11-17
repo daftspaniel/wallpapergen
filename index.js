@@ -3,7 +3,7 @@ import os from 'os'
 
 import { savePNG } from './lib/io.js'
 import { Gfx } from './lib/gfx.js'
-import { mix, Colour, Stock } from './lib/colour.js'
+import { generatePalette } from './lib/palette.js'
 import { getWord, getFont } from './lib/words.js'
 
 const width = 1920
@@ -15,27 +15,13 @@ const g = new Gfx(context, width, height)
 
 const date = new Date()
 let day = date.getDate()
-const shade = date.getDate() + 100
 
 // Verbose details
-console.log(date)
+console.log('Wallpaper Generator: ',date)
 console.log('OS:\t' + os.platform())
 
 // Palette generation
-const palette = {
-  background: mix(0, 0, shade),
-  grid: mix(0, shade, 0),
-  text: mix(255, 255, 255),
-}
-
-palette.text = palette.background
-  .clone()
-  .invert()
-  .lighten(3 * day)
-
-palette.grid = palette.background
-  .clone()
-  .lighten(12 * day)
+const palette = generatePalette(date)
 
 // Clear to background
 g.cls(palette.background)
