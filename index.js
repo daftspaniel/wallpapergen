@@ -1,10 +1,10 @@
 import c from 'canvas'
 import os from 'os'
 
-import { savePNG } from './lib/io.js'
-import { Gfx } from './lib/gfx.js'
-import { generatePalette } from './lib/palette.js'
-import { getWord, getFont } from './lib/words.js'
+import { savePNG } from './lib/general/io.js'
+import { Gfx } from './lib/general/gfx.js'
+import { generatePalette } from './lib/wallpaper/palette.js'
+import { getWord, getFont } from './lib/wallpaper/words.js'
 
 const width = 1920
 const height = 1200
