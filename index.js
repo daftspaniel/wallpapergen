@@ -28,7 +28,7 @@ const palette = generatePalette(date)
 g.cls(palette.background)
 
 if (day % 2 === 0) {
-  for (let h = day; h < height - day; h += day * 2) {
+  for (let h = day; h < config.height - day; h += day * 2) {
     g.drawHStripe(palette.grid, h, config.width - day * 2, 4, day)
     palette.grid.lighten(-2)
   }
