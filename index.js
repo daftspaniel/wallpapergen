@@ -7,9 +7,10 @@ import { Gfx } from './lib/general/gfx.js'
 import { generatePalette } from './lib/wallpaper/palette.js'
 import { getWord, getFont } from './lib/wallpaper/words.js'
 import { config } from './config.js'
+import { Logger } from './lib/general/logger'
 
 const startTime = performance.now()
-
+const log = Logger(config).log
 const canvas = c.createCanvas(config.width, config.height)
 const context = canvas.getContext('2d')
 const g = new Gfx(context, config.width, config.height)
@@ -18,8 +19,8 @@ const date = new Date()
 let day = date.getDate()
 
 // Verbose details
-console.log('Wallpaper Generator: ', date)
-console.log('OS:\t' + os.platform())
+log('Wallpaper Generator: ', date)
+log('OS:\t' + os.platform())
 
 // Palette generation
 const palette = generatePalette(date)
@@ -51,5 +52,5 @@ g.drawText(palette.text, (config.width - textWidth) / 2, 555, word)
 savePNG(canvas, config.filename)
 const endTime = performance.now()
 
-console.log(`Saved to : ${config.filename} ${fs.statSync(config.filename).size} bytes`)
-console.log('Time taken: ' + (endTime - startTime))
+log(`Saved to : ${config.filename} ${fs.statSync(config.filename).size} bytes`)
+log('Time taken: ' + (endTime - startTime))
