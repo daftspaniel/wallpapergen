@@ -35,7 +35,6 @@ log()
 logObject(log, palette, (c) => c.getColor())
 log()
 generateBackground(g, palette, date)
-drawText(g, palette, date)
 
 if (day % 2 === 0) {
   for (let h = day; h < config.height - day; h += day * 2) {
@@ -45,11 +44,12 @@ if (day % 2 === 0) {
 }
 
 if (day % 4 === 0) {
-  for (let h = day; h < width - day; h += day * 2) {
+  for (let h = day; h < config.width - day; h += day * 2) {
     g.drawVStripe(palette.grid, h, config.height - day * 2, 4, day)
     palette.grid.lighten(-4)
   }
 }
+drawText(g, palette, date)
 
 savePNG(canvas, config.filename)
 
