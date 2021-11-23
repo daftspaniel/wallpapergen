@@ -14,4 +14,8 @@ This is a simple wallpaper generator seeded by the current date and time.
 5. Very configurable.
 
 ## Samples
-![Wallpaper](./out/test.png)
+![Wallpaper](./out/test0.png)
+![Wallpaper](./out/1-Chocolate.png)
+![Wallpaper](./out/1-Earthworm.png)
+![Wallpaper](./out/1-Dinosaur.png)
+![Wallpaper](./out/1-Archaeopteryx.png)

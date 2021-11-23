@@ -6,5 +6,6 @@ export const config = {
   verticalStripes: true,
   horizontalStripes: true,
   text: true,
-  logging: { palette: false, save: false },
+  labelBehindText: true,
+  logging: { palette: true, save: false },
 }
